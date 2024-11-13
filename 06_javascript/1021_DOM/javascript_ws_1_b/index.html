@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .text-red {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="text">Lorem ipsum dolor sit amet.</p>
+  <div id="container">
+    <p class="text">Hello world!</p>
+    <ul>
+      <li class="list-content">content1</li>
+      <li class="list-content">content2</li>
+      <li class="list-content">content3</li>
+      <li class="list-content">content4</li>
+    </ul>
+    <a href="#">hyper link</a>
+  </div>
+  <script>
+    // 아래에 코드 작성
+    const pTag = document.querySelector("#container > .text")
+    // pTag 의 클래스 목록에 "text-red" 클래스 추가
+    pTag.classList.add("text-red")
+
+    const aTag = document.querySelector("a")
+    // aTag 의 "href" 라는 속성을 "https://www.google.com/" 으로 변경
+    // aTag.setAttribute("href", "https://www.google.com/")
+
+    // html의 해당 요소에 원래 존재하던 속성들은 . 을 통해서 접근 가능
+    aTag.href = "https://www.google.com/"
+  </script>
+</body>
+
+</html>

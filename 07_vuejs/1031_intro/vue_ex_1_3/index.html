@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>User Profile</h1>
+    <p>Name: {{ user.name }}</p>
+    <p>Age: {{ user.age }}</p>
+    <button v-on:click="changeName">Change Name</button>
+    <button v-on:click="changeAge">Change Age</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const user = ref({
+          name: 'Alice',
+          age: 30
+        })
+
+        const changeName = function () {
+          // prompt() => 입력 알림창(모달)을 띄워서 사용자가 입력한 값을 결과로 반환하는 함수
+          // 알림창에 보여주고싶은 메세지가 있으면 인자로 전달
+          // 두번째 인자는 기본값
+          const name = prompt("Enter new name:", user.value.name)
+          console.log(typeof(name))
+          user.value.name = name
+        }
+
+        const changeAge = function () {
+          const age = prompt("Enter new age:", user.value.age)
+          console.log(typeof(age))
+          // prompt() 입력 결과는 string, 문자열
+          user.value.age = Number(age)
+        }
+
+        return {
+          user,
+          changeName,
+          changeAge
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

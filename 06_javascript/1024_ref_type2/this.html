@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // this 결과 예상해보기
+
+    // 1.
+    function showThis() {
+      console.log(this)
+    }
+
+    showThis()
+
+    // 2.
+    const person = {
+      name: "홍길동",
+      greet: function () {
+        console.log(this.name)
+      }
+    }
+    person.greet()
+
+    // 3.
+    const dog = {
+      sound: "멍멍",
+      bark: function () {
+        console.log(this.sound)
+      }
+    }
+
+    const barkFunction = dog.bark
+    barkFunction()
+
+    // 4.
+    const car = {
+      brand : "현대",
+      // 객체의 메소드는 거의 모든 경우에 화살표 함수로 작성하면 안된다.
+      showBrand: () => {
+        console.log(this.brand)
+      }
+    }
+
+    car.showBrand()
+
+    // 5.
+    const timer = {
+      seconds: 0,
+      start : function() {
+        // 어떤 함수를 특정한 시간 간격으로 계속 실행하고 싶을때 사용하는 함수
+        // setInterval(function () {
+        //   this.seconds += 1
+        //   console.log(this.seconds)
+        // }, 1000)
+        setInterval(() => {
+          this.seconds += 1
+          console.log(this.seconds)
+        }, 1000)
+      }
+    }
+    
+    timer.start()
+
+  </script>
+</body>
+
+</html>

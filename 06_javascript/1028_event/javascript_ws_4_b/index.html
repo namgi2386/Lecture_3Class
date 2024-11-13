@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .font-crimson {
+      color: crimson;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="heading">Hover me!</h1>
+  <h2 class="sub-heading">Double Click me!</h2>
+  <p class="contents">Lorem ipsum dolor sit amet consectetur</p>
+
+  <script>
+    const randomTexts = [
+      'Lorem ipsum dolor sit amet consectetu',
+      'adipisicing elit. Repellendus delectus quam',
+      'similique quo ipsam maxime totam alias',
+      'quibusdam repudiandae voluptas dicta',
+      'voluptas voluptatibus exercitationem officiis'
+    ]
+
+    // 아래에 코드 작성
+    const h1Tag = document.querySelector(".heading")
+    // 원래 텍스트 기억해두기
+    const orginText = h1Tag.textContent
+
+    // h1요소에 마우스가 들어가면 mouseover => 텍스트를 바꾸고
+    h1Tag.addEventListener("mouseover", function (e) {
+      h1Tag.textContent = "I am being hovered!"
+    })
+
+    // h1요소에 있던 마우스가 밖으로 나오면 mouseout => 원래 텍스트로
+    h1Tag.addEventListener("mouseout", function (e) {
+      h1Tag.textContent = orginText
+    })
+
+    const h2Tag = document.querySelector(".sub-heading")
+
+    // h2를 더블클릭 dblclick => 색을 바꾸기
+    h2Tag.addEventListener("dblclick", function (e) {
+      h2Tag.classList.toggle("font-crimson")
+    })
+
+    const pTag = document.querySelector(".contents")
+
+    // p태그에서 스크롤을 하면 wheel => 랜덤 택스트로 바꾸기
+    pTag.addEventListener("wheel", function (e) {
+      const randomNumber = Math.floor(Math.random() * randomTexts.length)
+      pTag.textContent = randomTexts[randomNumber]
+    })
+
+  </script>
+</body>
+
+</html>

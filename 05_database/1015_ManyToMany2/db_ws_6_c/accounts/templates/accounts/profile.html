@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ profile_user.username }}님의 프로필 페이지 입니다!</h1>
+{% if profile_user.email %}
+  <p>문의 메일 : {{ profile_user.email }}</p>
+{% else %}
+  <p>아직 이메일을 작성하지 않았습니다.</p>
+{% endif %}
+<hr>
+{% if request.user == profile_user %}
+  <a href="{% url "accounts:update" %}">[USER_UPDATE]</a>
+  <form action="{% url "accounts:delete" %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="[SIGN_OUT]">
+  </form>
+{% else %}
+  <form action="{% url "accounts:subscribe" profile_user.pk %}" method="POST">
+    {% csrf_token %}
+    {% if request.user in profile_user.subscriber.all %}
+      <input type="submit" value="구독 취소">
+    {% else %}
+      <input type="submit" value="구독">
+    {% endif %}
+  </form>
+{% endif %}
+<hr>
+<h3>{{ profile_user.username }}님이 선택한 사진(다이어리)들</h3>
+<ul>
+  {% for diary in like_diaries %}
+  <li>
+    {% if diary.picture %}
+      <img src="{{ diary.picture.url }}" alt="{{ diary.picture }}">
+    {% endif %}
+    <p>{{ diary.content }}</p>
+  </li>
+  {% endfor %}
+</ul>
+<hr>
+{% if request.user == profile_user %}
+  <h3>내가 구독중인 유저들의 할 일 목록</h3>
+  <ul>
+    {% for subscription in request.user.subscription.all %}
+      <p>이름 : <a href="{% url "accounts:profile" subscription.username %}">{{ subscription.username }}</a></p>
+        {% for todo in subscription.todo_set.all %}
+          <li>
+              <p>할 일 : {{ todo.work }}</p>
+          </li>
+        {% empty %}
+          <p>아직 작성한 할 일이 없습니다.</p>
+        {% endfor %}
+      {% endfor %}
+  </ul>
+{% else %}
+  <h3>{{profile_user.username}}님이 구독중인 유저 목록</h3>
+  <ul>
+    {% for subscription in profile_user.subscription.all %}
+      <li>
+        <p>이름 : <a href="{% url "accounts:profile" subscription.username %}">{{ subscription.username }}</a></p>
+      </li>
+    {% empty %}
+      <p>아직 구독한 유저가 없습니다.</p>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock content %}
+
+

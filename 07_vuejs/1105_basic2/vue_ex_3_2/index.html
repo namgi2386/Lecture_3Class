@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .is-completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Todo Application</h1>
+    <!-- form의 제출 이벤트는 어지간하면 submit을 통해서만.. click 이나 enter 키 입력 xx -->
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="newTodo">
+      <input type="submit" value="Add">
+    </form>
+
+    <ul>
+      <li v-for="todo in todos" :key="todo.id">
+        <input type="checkbox" v-model="todo.isCompleted">
+        <span :class="{ 'is-completed': todo.isCompleted }">{{ todo.text }}</span>
+        <button @click="deleteTodo(todo.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const todos = ref([])
+        // 사용자가 입력한 내용을 반응형 변수로 관리
+        const newTodo = ref("")
+
+        const addTodo = function () {
+          // 입력값이 비었는지 검사
+          // trim() => 양쪽 공백 제거
+          if (newTodo.value.trim() !== "") {
+            // 새로운 todo 객체를 만들어서 todos.value 에 추가
+            const todoObj = {
+              id: Date.now(),
+              text: newTodo.value,
+              isCompleted: false
+            }
+            todos.value.push(todoObj)
+            newTodo.value = ""
+          }
+        }
+
+        // todo 하나를 삭제 할건데.. 삭제 조건 : 일치하는 id를 가진 todo 삭제
+        const deleteTodo = function(todoId) {
+          // todoId를 통해서 삭제하려고하는 todo 의 index 찾기
+          const index = todos.value.findIndex((todo) => todo.id === todoId)
+          // splice 함수를 통해서 해당 index에 있는 todo 제거
+          todos.value.splice(index, 1)
+        }
+
+        return {
+          todos,
+          newTodo,
+          addTodo,
+          deleteTodo,
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

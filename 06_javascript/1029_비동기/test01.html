@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log("타이머 시작")
+
+    setTimeout(() => {
+      console.log("1초 타이머 완료")
+    }, 1000)
+
+    const start = Date.now()
+    while (Date.now() - start < 5000) {
+      // 5초동안 반복문 돌리기
+    }
+
+    console.log("모든 작업 완료")
+  </script>
+</body>
+</html>

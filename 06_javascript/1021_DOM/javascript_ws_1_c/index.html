@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .article {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .border-top {
+      border-top : 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+
+  </div>
+  <script>
+    // 아래에 코드 작성
+    // 어떤 요소의 자식으로 삽입할껀지(삽입 위치)
+    const container = document.querySelector("#container")
+    // 우리가 만든 새로운 요소
+    const articleDiv = document.createElement("div")
+    articleDiv.classList.add("article")
+
+    // articleDiv 의 자식으로 h1, p... 삽입
+    
+    // 기사 제목 역할을 할 태그
+    const articleTitle = document.createElement("h1")
+    articleTitle.textContent = "Article Title"
+
+    // 기사 내용 역할을 할 태그
+    const articleContent = document.createElement("p")
+    articleContent.textContent = "This is a article content"
+
+    // 위에서 p 태그의 style 을 직접 설정
+    articleContent.style.borderTop = "1px solid black"
+    articleContent.style.paddingTop = "10px"
+    // articleContent.classList.add("border-top")
+
+    // articleTitle과 articleContent의 위치는 articleDiv 안
+    articleDiv.appendChild(articleTitle)
+    articleDiv.appendChild(articleContent)
+
+    // articleDiv의 위치는 container 안
+    container.appendChild(articleDiv)
+    container.app
+
+  </script>
+</body>
+
+</html>

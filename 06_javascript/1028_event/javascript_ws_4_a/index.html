@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      width: 100%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    td {
+      width: 50px;
+      height: 50px;
+      border: 1px solid black;
+      text-align: center;
+    }
+
+    .theme-color {
+      background-color: crimson;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>Lorem, ipsum dolor.</td>
+      <td>Lorem, ipsum dolor.</td>
+      <td>Lorem, ipsum dolor.</td>
+    </tr>
+    <tr>
+      <td>Lorem, ipsum dolor.</td>
+      <td>Lorem, ipsum dolor.</td>
+      <td>Lorem, ipsum dolor.</td>
+    </tr>
+    <tr>
+      <td>Lorem, ipsum dolor.</td>
+      <td>Lorem, ipsum dolor.</td>
+      <td>Lorem, ipsum dolor.</td>
+    </tr>
+  </table>
+
+  <script>
+    // 아래에 코드 작성
+
+    // 원래대로라면 모든 요소에 각각 이벤트 함수를 달아야 하지만
+    // 이벤트 위임(버블링을 이용한) 을 통해 부모 요소한테만 이벤트 함수를 달아주면 된다.
+    const table = document.querySelector("table")
+
+    table.addEventListener("click", function(event) {
+      // 만약 td의 클래스 목록에 "theme-color" 라는 클래스가 있으면 제거
+      // 없으면 추가 => add, remove, toggle
+      event.target.classList.toggle("theme-color")
+    })
+
+  </script>
+</body>
+
+</html>

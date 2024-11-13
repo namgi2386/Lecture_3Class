@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>할 일 목록 관리 프로젝트 메인 페이지</h1>
+  <p>이 곳에서 할 일 목록을 관리합니다.</p>
+  <ul>
+    {% for todo in todo_list %}
+      <li>
+        <form action="{% url "todos:toggle_todo" todo.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="checkbox" name="is_completed" value="{{ todo.is_completed }}" {% if todo.is_completed %}checked{% endif %}>
+          
+          {% comment %} <label for="">
+            <input type="checkbox" name="fruits" value="사과">
+            사과
+          </label>
+          <label for="">
+            <input type="checkbox" name="fruits" value="포도">
+            포도
+          </label>
+          <label for="">
+            <input type="checkbox" name="fruits" value="딸기">
+            딸기
+          </label> {% endcomment %}
+          
+          <input type="submit" value="변경">
+        </form>
+        <a href="{% url "todos:detail" todo.pk %}">{{ todo.work }}</a>
+      </li>
+    {% empty %}
+      <li>아직 할 일이 없습니다.</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}

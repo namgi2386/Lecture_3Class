@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>카드 생성기</h1>
+
+    <form @submit.prevent="createCard">
+      <div>
+        <label for="title">제목: </label>
+        <input type="text" id="title" required v-model="inputTitle">
+      </div>
+      <div>
+        <label for="content">내용: </label>
+        <textarea id="content" required v-model="inputContent"></textarea>
+      </div>
+      <div>
+        <label for="color">배경색: </label>
+        <select id="color" required v-model="inputColor">
+          <option value="" disabled selected>색상을 선택하시오.</option>
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+      </div>
+      <input type="submit" value="생성">
+    </form>
+    <button @click="toggleShow">클릭하면 카드가 보입니다.</button>
+
+    <div v-show="showCard" class="card" :style="{ backgroundColor : cardColor }">
+      <h2>{{ cardTitle }}</h2>
+      <p>{{ cardContent }}</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        // 입력 제목
+        const inputTitle = ref("")
+        // 입력 내용
+        const inputContent = ref("")
+        // 입력 색상
+        const inputColor = ref("")
+
+        // 카드 제목
+        const cardTitle = ref("")
+        // 카드 내용
+        const cardContent = ref("")
+        // 카드 색상
+        const cardColor = ref("")
+
+        // 카드를 보여줄지 말지 결정하는 반응형 변수
+        const showCard = ref(false)
+
+        const toggleShow = function () {
+          showCard.value = !showCard.value
+        }
+
+        const createCard = function () {
+          // showCard.value = true
+          cardTitle.value = inputTitle.value
+          cardContent.value = inputContent.value
+          cardColor.value = inputColor.value
+
+          inputTitle.value = ""
+          inputContent.value = ""
+          inputColor.value = ""
+        }
+
+        return {
+          inputTitle,
+          inputContent,
+          inputColor,
+          cardTitle,
+          cardContent,
+          cardColor,
+          createCard,
+          showCard,
+          toggleShow
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
